@@ -8,17 +8,16 @@ namespace Game.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection service, IConfiguration configuration)
     {
-        services.AddDbContext<GameContext>(options => 
+        service.AddScoped<IUnitOfwork, UnitOfWork>();
+        service.AddDbContext<GameContext>(options => 
         {
             options.UseSqlServer(
                 configuration.GetConnectionString("GameConnection"),
                 b => b.MigrationsAssembly("Game.Infrastructure"));
         });
 
-        services.AddScoped<IUnitOfwork, UnitOfWork>();
-
-        return services;
+        return service;
     }
 }
