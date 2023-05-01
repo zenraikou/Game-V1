@@ -1,3 +1,5 @@
+using Game.Infrastructure.IRepositories;
+using Game.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,8 @@ public static class DependencyInjection
                 configuration.GetConnectionString("GameConnection"),
                 b => b.MigrationsAssembly("Game.Infrastructure"));
         });
+
+        services.AddScoped<IUnitOfwork, UnitOfWork>();
 
         return services;
     }
