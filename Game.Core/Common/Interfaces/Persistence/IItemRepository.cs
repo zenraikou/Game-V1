@@ -1,5 +1,5 @@
 using Game.Domain.Entities;
 
-namespace Game.Infrastructure.IRepositories;
+namespace Game.Core.Common.Interfaces.Persistence;
 
 public interface IItemRepository : IGenericRepository<Item> { }

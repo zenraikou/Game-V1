@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Game.Infrastructure;
 
-public class GameContext : DbContext
+public class GameDBContext : DbContext
 {
-    public GameContext(DbContextOptions<GameContext> options) : base(options) { }
+    public GameDBContext(DbContextOptions<GameDBContext> options) : base(options) { }
 
     public DbSet<Item> Items => Set<Item>();
 

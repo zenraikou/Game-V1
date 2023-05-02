@@ -1,4 +1,4 @@
-namespace Game.Infrastructure.IRepositories;
+namespace Game.Core.Common.Interfaces.Persistence;
 
 public interface IUnitOfwork : IDisposable
 {

@@ -1,11 +1,11 @@
 using FluentValidation;
-using Game.Core.Contracts.Item;
+using Game.Contracts.Items;
 
 namespace Game.Core.Validators;
 
-public class UpsertItemRequestValidator : AbstractValidator<UpsertItemRequest>
+public class ItemRequestValidator : AbstractValidator<ItemRequest>
 {
-    public UpsertItemRequestValidator()
+    public ItemRequestValidator()
     {
         RuleFor(i => i.Name)
             .Length(1, 24)

@@ -1,15 +1,15 @@
 using System.Linq.Expressions;
-using Game.Infrastructure.IRepositories;
+using Game.Core.Common.Interfaces.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace Game.Infrastructure.Repositories;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {
-    private readonly GameContext _context;
+    private readonly GameDBContext _context;
     private readonly DbSet<TEntity> _db;
 
-    public GenericRepository(GameContext context)
+    public GenericRepository(GameDBContext context)
     {
         _context = context;
         _db = _context.Set<TEntity>();

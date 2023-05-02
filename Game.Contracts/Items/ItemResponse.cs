@@ -1,8 +1,8 @@
 using Mapster;
 
-namespace Game.Core.Contracts.Item;
+namespace Game.Contracts.Items;
 
-public class GetItemResponse
+public class ItemResponse
 {
     [AdaptIgnore(MemberSide.Source)]
     public Guid Id { get; private init; } = Guid.NewGuid();
