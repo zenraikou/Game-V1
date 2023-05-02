@@ -21,7 +21,7 @@ public class PostItemCommandHandler : IRequestHandler<PostItemCommand, ItemRespo
         var item = request.Item.Adapt<Item>();
         await _unitOfWork.Items.PostAsync(item);
         await _unitOfWork.SaveAsync();
-
+        
         var response = item.Adapt<ItemResponse>();
         return response;
     }

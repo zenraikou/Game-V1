@@ -21,7 +21,7 @@ public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand, ItemR
         var item = request.Item.Adapt<Item>();
         _unitOfWork.Items.Delete(item);
         await _unitOfWork.SaveAsync();
-
+        
         var response = item.Adapt<ItemResponse>();
         return response;
     }
