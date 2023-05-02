@@ -1,0 +1,45 @@
+### Replace 'placeholder' with an existing GUID
+# Open GETALL.rest file to request list of items
+@id = placeholder
+
+### Base URL
+@host = http://localhost:5000
+
+### Documented Responses
+# 500 Internal Server Error
+# 404 Not Found
+# 204 No Content
+PATCH {{host}}/api/item/{{id}}
+Content-Type: application/json
+
+[
+    {
+        "op": "replace",
+        "path": "/name",
+        "value": "Black King Bar"
+    },
+    {
+        "op": "replace",
+        "path": "/description",
+        "value": "An armor crafted from the scales of a Pure Gold Dragon."
+    }
+]
+
+### Documented Response
+# 500 Internal Server Error
+# 400 Bad Request
+PATCH {{host}}/api/item/{{id}}
+Content-Type: application/json
+
+[
+    {
+        "op": "replace",
+        "path": "/name",
+        "value": ""
+    },
+    {
+        "op": "replace",
+        "path": "/description",
+        "value": ""
+    }
+]

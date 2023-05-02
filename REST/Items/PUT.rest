@@ -1,0 +1,29 @@
+### Replace 'placeholder' with an existing GUID
+# Open GETALL.rest file to request list of items
+@id = placeholder
+
+### Base URL
+@host = http://localhost:5000
+
+### Documented Responses
+# 500 Internal Server Error
+# 404 Not Found
+# 204 No Content
+PUT {{host}}/api/item/{{id}}
+Content-Type: application/json
+
+{
+    "name": "Crimson Guard",
+    "description": "An armor crafted from the scales of a Pure Crimson Dragon."
+}
+
+### Documented Response
+# 500 Internal Server Error
+# 400 Bad Request
+PUT {{host}}/api/item/{{id}}
+Content-Type: application/json
+
+{
+    "name": "",
+    "description": ""
+}

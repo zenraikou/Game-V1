@@ -1,26 +1,26 @@
-using Game.Infrastructure.IRepositories;
+using Game.Core.Common.Interfaces.Persistence;
 
 namespace Game.Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfwork
 {
-    private readonly GameContext _contexet;
+    private readonly GameDBContext _context;
 
     public IItemRepository Items { get; private set; }
 
-    public UnitOfWork(GameContext contexet)
+    public UnitOfWork(GameDBContext context)
     {
-        _contexet = contexet;
-        Items = new ItemRepository(_contexet);
+        _context = context;
+        Items = new ItemRepository(context);
     }
 
     public async Task SaveAsync()
     {
-        await _contexet.SaveChangesAsync();
+        await _context.SaveChangesAsync();
     }
 
     public void Dispose()
     {
-        _contexet.Dispose();
+        _context.Dispose();
     }
 }

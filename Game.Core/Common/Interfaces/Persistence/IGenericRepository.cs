@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Game.Infrastructure.IRepositories;
+namespace Game.Core.Common.Interfaces.Persistence;
 
 public interface IGenericRepository<TEntity> where TEntity : class
 {

@@ -4,16 +4,19 @@ using Game.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Game.Infrastructure.Migrations
 {
-    [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(GameDBContext))]
+    [Migration("20230502034032_Initialize")]
+    partial class Initialize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,31 +49,31 @@ namespace Game.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b6dc2adc-168c-4425-a933-6985d3c64c6e"),
+                            Id = new Guid("a489374e-48ea-47f2-8fff-860f142f27b8"),
                             Description = "A dagger crafted from the tooth of a Pure Silver Dragon.",
                             Name = "Dagon",
-                            Timestamp = new DateTime(2023, 5, 1, 9, 2, 41, 442, DateTimeKind.Utc).AddTicks(2537)
+                            Timestamp = new DateTime(2023, 5, 2, 3, 40, 31, 722, DateTimeKind.Utc).AddTicks(8755)
                         },
                         new
                         {
-                            Id = new Guid("14e84c6b-a08d-48f3-8103-84310ab675d3"),
+                            Id = new Guid("519ed1bf-4664-4680-aed5-0dea811198a7"),
                             Description = "A sword crafted from the talon of a Pure Silver Dragon.",
                             Name = "Yasha",
-                            Timestamp = new DateTime(2023, 5, 1, 9, 2, 41, 442, DateTimeKind.Utc).AddTicks(2550)
+                            Timestamp = new DateTime(2023, 5, 2, 3, 40, 31, 722, DateTimeKind.Utc).AddTicks(8826)
                         },
                         new
                         {
-                            Id = new Guid("2e63e1fc-99d3-464f-9dc7-30f665c7f3ff"),
+                            Id = new Guid("4fc17fe1-a8e1-43d8-a830-9229e8bb5e2a"),
                             Description = "A bow crafted from the wing of a Pure Silver Dragon.",
                             Name = "Buriza",
-                            Timestamp = new DateTime(2023, 5, 1, 9, 2, 41, 442, DateTimeKind.Utc).AddTicks(2555)
+                            Timestamp = new DateTime(2023, 5, 2, 3, 40, 31, 722, DateTimeKind.Utc).AddTicks(8832)
                         },
                         new
                         {
-                            Id = new Guid("147f7db0-6c56-46a6-b80f-80be5db39203"),
+                            Id = new Guid("ea86c683-d09a-4142-a822-a122543d7b76"),
                             Description = "A shield crafted from the scales of a Pure Silver Dragon.",
                             Name = "Vanguard",
-                            Timestamp = new DateTime(2023, 5, 1, 9, 2, 41, 442, DateTimeKind.Utc).AddTicks(2558)
+                            Timestamp = new DateTime(2023, 5, 2, 3, 40, 31, 722, DateTimeKind.Utc).AddTicks(8836)
                         });
                 });
 #pragma warning restore 612, 618

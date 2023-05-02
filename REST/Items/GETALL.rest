@@ -1,0 +1,8 @@
+### Base URL
+@host = http://localhost:5000
+
+### Documented Responses
+# 500 Internal Server Error
+# 204 No Content
+# 200 OK
+GET {{host}}/api/items

@@ -1,4 +1,4 @@
-using Game.Infrastructure.IRepositories;
+using Game.Core.Common.Interfaces.Persistence;
 using Game.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,14 +10,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection service, IConfiguration configuration)
     {
+        service.AddDbContext<GameDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("GameConnection")));
         service.AddScoped<IUnitOfwork, UnitOfWork>();
-        service.AddDbContext<GameContext>(options => 
-        {
-            options.UseSqlServer(
-                configuration.GetConnectionString("GameConnection"),
-                b => b.MigrationsAssembly("Game.Infrastructure"));
-        });
-
         return service;
     }
 }
