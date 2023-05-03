@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddRouting(options => options.LowercaseUrls = true);
     builder.Host.UseSerilog((contxet, configuration) => configuration.ReadFrom.Configuration(contxet.Configuration));
     builder.Services.AddCore();
-    builder.Services.AddInfrastructure(builder.Configuration);
+    builder.Services.AddInfrastructure();
 }
 
 var app = builder.Build();
