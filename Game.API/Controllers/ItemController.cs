@@ -4,6 +4,7 @@ using Game.Contracts.Items;
 using Game.Core.Items.Commands;
 using Game.Core.Items.Queries;
 using Mapster;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,13 @@ namespace Game.API.Controllers;
 public class ItemController : ControllerBase
 {
     private readonly ILogger<ItemController> _logger;
+    private readonly IMapper _mapper;
     private readonly IMediator _mediator;
 
-    public ItemController(ILogger<ItemController> logger, IMediator mediator)
+    public ItemController(ILogger<ItemController> logger, IMapper mapper, IMediator mediator)
     {
         _logger = logger;
+        _mapper = mapper;
         _mediator = mediator;
     }
 
@@ -98,11 +101,8 @@ public class ItemController : ControllerBase
             return NotFound();
         }
 
-        var config = new TypeAdapterConfig();
-        config.Default.Ignore("Id");
-
-        request.Adapt(response, config);
-        response.Adapt(request);
+        _mapper.Map(request, response);
+        _mapper.Map(response, request);
 
         ValidationResult result = validator.Validate(request);
 
@@ -139,7 +139,7 @@ public class ItemController : ControllerBase
             return NotFound();
         }   
         
-        var request = response.Adapt<ItemRequest>();
+        var request = _mapper.Map<ItemRequest>(response);
         patchDoc.ApplyTo(request);
 
         ValidationResult result = validator.Validate(request);
@@ -176,8 +176,7 @@ public class ItemController : ControllerBase
             return NotFound();
         }
 
-
-        var request = response.Adapt<ItemRequest>();
+        var request = _mapper.Map<ItemRequest>(response);
         await _mediator.Send(new DeleteItemCommand(request));
 
         _logger.LogInformation("Item deleted successfully.");

@@ -7,10 +7,10 @@ namespace Game.Core;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddCore(this IServiceCollection service)
+    public static IServiceCollection AddCore(this IServiceCollection services)
     {
-        service.AddValidatorsFromAssemblyContaining<IAssemblyMarker>();
-        service.AddMediatR(typeof(DependencyInjection));
-        return service;
+        services.AddValidatorsFromAssemblyContaining<IAssemblyMarker>();
+        services.AddMediatR(typeof(DependencyInjection));
+        return services;
     }
 }

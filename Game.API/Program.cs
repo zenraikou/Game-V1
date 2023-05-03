@@ -1,3 +1,4 @@
+using Game.API;
 using Game.Core;
 using Game.Infrastructure;
 using Serilog;
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddMvc().AddNewtonsoftJson();
     builder.Services.AddRouting(options => options.LowercaseUrls = true);
     builder.Host.UseSerilog((contxet, configuration) => configuration.ReadFrom.Configuration(contxet.Configuration));
+    builder.Services.AddAPI();
     builder.Services.AddCore();
     builder.Services.AddInfrastructure();
 }
