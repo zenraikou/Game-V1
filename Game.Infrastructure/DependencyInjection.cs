@@ -1,5 +1,5 @@
 using Game.Core.Common.Interfaces.Persistence;
-using Game.Infrastructure.Repositories;
+using Game.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

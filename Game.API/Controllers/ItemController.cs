@@ -1,9 +1,12 @@
 using FluentValidation;
 using FluentValidation.Results;
 using Game.Contracts.Items;
-using Game.Core.Items.Commands;
-using Game.Core.Items.Queries;
-using Mapster;
+using Game.Core.Items.Commands.Delete;
+using Game.Core.Items.Commands.Post;
+using Game.Core.Items.Commands.Update;
+using Game.Core.Items.Queries.Get;
+using Game.Core.Items.Queries.GetAll;
+using Game.Domain.Entities;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
@@ -17,12 +20,14 @@ namespace Game.API.Controllers;
 public class ItemController : ControllerBase
 {
     private readonly ILogger<ItemController> _logger;
+    private readonly IValidator<ItemRequest> _validator;
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
 
-    public ItemController(ILogger<ItemController> logger, IMapper mapper, IMediator mediator)
+    public ItemController(ILogger<ItemController> logger, IValidator<ItemRequest> validator, IMapper mapper, IMediator mediator)
     {
         _logger = logger;
+        _validator = validator;
         _mapper = mapper;
         _mediator = mediator;
     }
@@ -32,13 +37,16 @@ public class ItemController : ControllerBase
     [HttpGet("~/api/[controller]s")] /* GET: {host}/api/items */
     public async Task<ActionResult<List<ItemResponse>>> GetAll()
     {
-        var response = await _mediator.Send(new GetItemsQuery());
+        var getAll = new GetItemsQuery();
+        var items = await _mediator.Send(getAll);
 
-        if (response is null)
+        if (items is null)
         {
             _logger.LogInformation("Items are currently empty.");
             return NoContent();
         }
+
+        var response = _mapper.Map<List<Item>>(items);
 
         _logger.LogInformation("Items fetched successfully.");
         return Ok(response);
@@ -49,13 +57,16 @@ public class ItemController : ControllerBase
     [HttpGet("{id}")] /* GET: {host}/api/item/{id} */
     public async Task<ActionResult<ItemResponse>> Get(Guid id)
     {
-        var response = await _mediator.Send(new GetItemQuery(id));
+        var get = new GetItemQuery(id);
+        var item = await _mediator.Send(get);
 
-        if (response is null)
+        if (item is null)
         {
             _logger.LogError("Item does not exist.");
             return NotFound();
         }
+
+        var response = _mapper.Map<ItemResponse>(item);
 
         _logger.LogInformation("Item fetched successfully.");
         return Ok(response);
@@ -64,9 +75,9 @@ public class ItemController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [HttpPost] /* POST: {host}/api/item */
-    public async Task<ActionResult<ItemResponse>> Post(ItemRequest request, IValidator<ItemRequest> validator)
+    public async Task<ActionResult<ItemResponse>> Post(ItemRequest request)
     {
-        ValidationResult result = validator.Validate(request);
+        ValidationResult result = _validator.Validate(request);
 
         if (!result.IsValid)
         {
@@ -80,8 +91,11 @@ public class ItemController : ControllerBase
             _logger.LogError("Item is invalid.");
             return ValidationProblem(dictionary);
         }
-
-        var response = await _mediator.Send(new PostItemCommand(request));
+        
+        var item = _mapper.Map<Item>(request);
+        var post = new PostItemCommand(item);
+        await _mediator.Send(post);
+        var response = _mapper.Map<ItemResponse>(item);
         
         _logger.LogInformation("Item created successfully.");
         return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
@@ -91,20 +105,21 @@ public class ItemController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPut("{id}")] /* PUT: {host}/api/item/{id} */
-    public async Task<IActionResult> Put(Guid id, ItemRequest request, IValidator<ItemRequest> validator)
+    public async Task<IActionResult> Put(Guid id, ItemRequest request)
     {
-        var response = await _mediator.Send(new GetItemQuery(id));
+        var get = new GetItemQuery(id);
+        var item = await _mediator.Send(get);
 
-        if (response is null)
+        if (item is null)
         {
             _logger.LogError("Item does not exist.");
             return NotFound();
         }
 
-        _mapper.Map(request, response);
-        _mapper.Map(response, request);
+        _mapper.Map(request, item);
+        _mapper.Map(item, request);
 
-        ValidationResult result = validator.Validate(request);
+        ValidationResult result = _validator.Validate(request);
 
         if (!result.IsValid)
         {
@@ -119,7 +134,8 @@ public class ItemController : ControllerBase
             return ValidationProblem(dictionary);
         }
 
-        await _mediator.Send(new UpdateItemCommand(request));
+        var update = new UpdateItemCommand(item);
+        await _mediator.Send(update);
 
         _logger.LogInformation("Item updated successfully.");
         return NoContent();
@@ -129,20 +145,21 @@ public class ItemController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpPatch("{id}")] /* PATCH: {host}/api/item/{id} */
-    public async Task<IActionResult> Patch(Guid id, JsonPatchDocument<ItemRequest> patchDoc, IValidator<ItemRequest> validator)
+    public async Task<IActionResult> Patch(Guid id, JsonPatchDocument<ItemRequest> patchDoc)
     {
-        var response = await _mediator.Send(new GetItemQuery(id));
+        var get = new GetItemQuery(id);
+        var item = await _mediator.Send(get);
 
-        if (response is null)
+        if (item is null)
         {
             _logger.LogError("Item does not exist.");
             return NotFound();
         }   
         
-        var request = _mapper.Map<ItemRequest>(response);
+        var request = _mapper.Map<ItemRequest>(item);
         patchDoc.ApplyTo(request);
 
-        ValidationResult result = validator.Validate(request);
+        ValidationResult result = _validator.Validate(request);
 
         if (!result.IsValid)
         {
@@ -157,7 +174,9 @@ public class ItemController : ControllerBase
             return ValidationProblem(dictionary);
         }
 
-        await _mediator.Send(new UpdateItemCommand(request));
+        _mapper.Map(request, item);
+        var update = new UpdateItemCommand(item);
+        await _mediator.Send(update);
         
         _logger.LogInformation("Item updated successfully.");
         return NoContent();
@@ -168,16 +187,17 @@ public class ItemController : ControllerBase
     [HttpDelete("{id}")] /* DELETE: {host}/api/item/{id} */
     public async Task<IActionResult> Delete(Guid id)
     {
-        var response = await _mediator.Send(new GetItemQuery(id));
+        var get = new GetItemQuery(id);
+        var item = await _mediator.Send(get);
 
-        if (response is null)
+        if (item is null)
         {
             _logger.LogError("Item does not exist.");
             return NotFound();
         }
 
-        var request = _mapper.Map<ItemRequest>(response);
-        await _mediator.Send(new DeleteItemCommand(request));
+        var delete = new DeleteItemCommand(item);
+        await _mediator.Send(delete);
 
         _logger.LogInformation("Item deleted successfully.");
         return NoContent();

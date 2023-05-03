@@ -1,6 +1,6 @@
 using Game.Core.Common.Interfaces.Persistence;
 
-namespace Game.Infrastructure.Repositories;
+namespace Game.Infrastructure.Persistence;
 
 public class UnitOfWork : IUnitOfwork
 {

@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Game.Core.Common.Interfaces.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Game.Infrastructure.Repositories;
+namespace Game.Infrastructure.Persistence;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {

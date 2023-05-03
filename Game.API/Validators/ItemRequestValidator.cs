@@ -1,7 +1,7 @@
 using FluentValidation;
 using Game.Contracts.Items;
 
-namespace Game.Core.Validators;
+namespace Game.API.Validators;
 
 public class ItemRequestValidator : AbstractValidator<ItemRequest>
 {

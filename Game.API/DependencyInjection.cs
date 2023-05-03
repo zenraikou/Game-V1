@@ -1,3 +1,5 @@
+using FluentValidation;
+using Game.API.Common.AssemblyMarker;
 using Game.API.Common.Mappings;
 using Serilog;
 
@@ -10,10 +12,9 @@ public static class DependencyInjection
         services.AddControllers();
         services.AddMvc().AddNewtonsoftJson();
         services.AddRouting(options => options.LowercaseUrls = true);
-
         host.UseSerilog((conext, config) => config.ReadFrom.Configuration(conext.Configuration));
         services.AddLogging(loggingBuilder => loggingBuilder.ClearProviders().AddSerilog(dispose: true));
-
+        services.AddValidatorsFromAssemblyContaining<IAssemblyMarker>();
         services.AddMappings();
         return services;
     }

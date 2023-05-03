@@ -8,7 +8,7 @@ public class ItemMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<ItemRequest, ItemResponse>().Ignore("Id");
-        config.ForType<ItemRequest, Item>().Map(dest => dest.Id, src => src.Id);
+        config.NewConfig<ItemRequest, Item>().Ignore("Id");
+        // config.ForType<ItemRequest, Item>().Map(dest => dest.Id, src => src.Id);
     }
 }
