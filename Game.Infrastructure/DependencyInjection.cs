@@ -1,4 +1,5 @@
 using Game.Core.Common.Interfaces.Persistence;
+using Game.Infrastructure.Common;
 using Game.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

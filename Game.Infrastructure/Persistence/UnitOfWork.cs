@@ -1,4 +1,5 @@
 using Game.Core.Common.Interfaces.Persistence;
+using Game.Infrastructure.Common;
 
 namespace Game.Infrastructure.Persistence;
 
