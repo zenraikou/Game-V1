@@ -1,8 +1,9 @@
 using Game.Core.Common.Interfaces.Persistence;
+using Game.Core.Services.Queries;
 using Game.Domain.Entities;
 using MediatR;
 
-namespace Game.Core.Items.Queries.Get;
+namespace Game.Core.Services.Handlers;
 
 public class GetItemQueryHandler : IRequestHandler<GetItemQuery, Item?>
 {

@@ -1,4 +1,4 @@
-namespace Game.Contracts.Items;
+namespace Game.Contracts.Item;
 
 public class ItemResponse
 {

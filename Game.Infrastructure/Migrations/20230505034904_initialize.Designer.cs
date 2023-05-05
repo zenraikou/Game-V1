@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Game.Infrastructure.Migrations
 {
     [DbContext(typeof(GameDBContext))]
-    [Migration("20230504150709_initialize")]
+    [Migration("20230505034904_initialize")]
     partial class initialize
     {
         /// <inheritdoc />
@@ -49,76 +49,35 @@ namespace Game.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("af41bc91-2adf-46f7-8107-ff01cb6e5d32"),
+                            Id = new Guid("41f1a3e1-8b8f-4309-bea6-212a6b1dc300"),
                             Description = "A dagger crafted from the tooth of a Pure Silver Dragon.",
                             Name = "Dagon",
-                            Timestamp = new DateTime(2023, 5, 4, 15, 7, 8, 618, DateTimeKind.Utc).AddTicks(7286)
+                            Timestamp = new DateTime(2023, 5, 5, 3, 49, 3, 641, DateTimeKind.Utc).AddTicks(1732)
                         },
                         new
                         {
-                            Id = new Guid("3d6aca35-52f0-43b9-beb3-22f77c0d4cf2"),
+                            Id = new Guid("b0d3096b-740d-4e49-9df4-df1a2469b86f"),
                             Description = "A sword crafted from the talon of a Pure Silver Dragon.",
                             Name = "Yasha",
-                            Timestamp = new DateTime(2023, 5, 4, 15, 7, 8, 618, DateTimeKind.Utc).AddTicks(7491)
+                            Timestamp = new DateTime(2023, 5, 5, 3, 49, 3, 641, DateTimeKind.Utc).AddTicks(1752)
                         },
                         new
                         {
-                            Id = new Guid("2d78ff00-71f0-45b5-af44-f867aad78d5b"),
+                            Id = new Guid("c1b47526-e3cd-4cb0-a7b0-70fad56718fc"),
                             Description = "A bow crafted from the wing of a Pure Silver Dragon.",
                             Name = "Buriza",
-                            Timestamp = new DateTime(2023, 5, 4, 15, 7, 8, 618, DateTimeKind.Utc).AddTicks(7500)
+                            Timestamp = new DateTime(2023, 5, 5, 3, 49, 3, 641, DateTimeKind.Utc).AddTicks(1758)
                         },
                         new
                         {
-                            Id = new Guid("e53cd494-75da-40e2-b057-5e516c52a39e"),
+                            Id = new Guid("69e5c46a-a618-446d-95cc-b9ab2a138efe"),
                             Description = "A shield crafted from the scales of a Pure Silver Dragon.",
                             Name = "Vanguard",
-                            Timestamp = new DateTime(2023, 5, 4, 15, 7, 8, 618, DateTimeKind.Utc).AddTicks(7506)
+                            Timestamp = new DateTime(2023, 5, 5, 3, 49, 3, 641, DateTimeKind.Utc).AddTicks(1762)
                         });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+            modelBuilder.Entity("Game.Infrastructure.Identity.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -170,6 +129,47 @@ namespace Game.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleClaims");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -190,6 +190,55 @@ namespace Game.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderKey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("UserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("UserTokens");
                 });
 #pragma warning restore 612, 618
         }

@@ -72,6 +72,30 @@ namespace Game.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -96,15 +120,28 @@ namespace Game.Infrastructure.Migrations
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                });
+
             migrationBuilder.InsertData(
                 table: "Items",
                 columns: new[] { "Id", "Description", "Name", "Timestamp" },
                 values: new object[,]
                 {
-                    { new Guid("2d78ff00-71f0-45b5-af44-f867aad78d5b"), "A bow crafted from the wing of a Pure Silver Dragon.", "Buriza", new DateTime(2023, 5, 4, 15, 7, 8, 618, DateTimeKind.Utc).AddTicks(7500) },
-                    { new Guid("3d6aca35-52f0-43b9-beb3-22f77c0d4cf2"), "A sword crafted from the talon of a Pure Silver Dragon.", "Yasha", new DateTime(2023, 5, 4, 15, 7, 8, 618, DateTimeKind.Utc).AddTicks(7491) },
-                    { new Guid("af41bc91-2adf-46f7-8107-ff01cb6e5d32"), "A dagger crafted from the tooth of a Pure Silver Dragon.", "Dagon", new DateTime(2023, 5, 4, 15, 7, 8, 618, DateTimeKind.Utc).AddTicks(7286) },
-                    { new Guid("e53cd494-75da-40e2-b057-5e516c52a39e"), "A shield crafted from the scales of a Pure Silver Dragon.", "Vanguard", new DateTime(2023, 5, 4, 15, 7, 8, 618, DateTimeKind.Utc).AddTicks(7506) }
+                    { new Guid("41f1a3e1-8b8f-4309-bea6-212a6b1dc300"), "A dagger crafted from the tooth of a Pure Silver Dragon.", "Dagon", new DateTime(2023, 5, 5, 3, 49, 3, 641, DateTimeKind.Utc).AddTicks(1732) },
+                    { new Guid("69e5c46a-a618-446d-95cc-b9ab2a138efe"), "A shield crafted from the scales of a Pure Silver Dragon.", "Vanguard", new DateTime(2023, 5, 5, 3, 49, 3, 641, DateTimeKind.Utc).AddTicks(1762) },
+                    { new Guid("b0d3096b-740d-4e49-9df4-df1a2469b86f"), "A sword crafted from the talon of a Pure Silver Dragon.", "Yasha", new DateTime(2023, 5, 5, 3, 49, 3, 641, DateTimeKind.Utc).AddTicks(1752) },
+                    { new Guid("c1b47526-e3cd-4cb0-a7b0-70fad56718fc"), "A bow crafted from the wing of a Pure Silver Dragon.", "Buriza", new DateTime(2023, 5, 5, 3, 49, 3, 641, DateTimeKind.Utc).AddTicks(1758) }
                 });
         }
 
@@ -124,7 +161,16 @@ namespace Game.Infrastructure.Migrations
                 name: "UserClaims");
 
             migrationBuilder.DropTable(
+                name: "UserLogins");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "UserTokens");
         }
     }
 }

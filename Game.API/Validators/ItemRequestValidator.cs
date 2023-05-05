@@ -1,5 +1,5 @@
 using FluentValidation;
-using Game.Contracts.Items;
+using Game.Contracts.Item;
 
 namespace Game.API.Validators;
 

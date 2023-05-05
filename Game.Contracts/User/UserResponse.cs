@@ -1,4 +1,4 @@
-namespace Game.Contracts.Users;
+namespace Game.Contracts.User;
 
 public record UserResponse
 {

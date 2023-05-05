@@ -24,6 +24,8 @@ public static class DependencyInjection
         app.UseExceptionHandler("/api/error");
         app.UseSerilogRequestLogging();
         app.UseHttpsRedirection();
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.UseRouting();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
         return app;

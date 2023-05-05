@@ -1,11 +1,12 @@
 using Game.Domain.Entities;
+using Game.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Game.Infrastructure.Common;
 
-public class GameDBContext : IdentityDbContext<IdentityUser>
+public class GameDBContext : IdentityDbContext<User>
 {
     public GameDBContext(DbContextOptions<GameDBContext> options) : base(options) { }
 
@@ -13,9 +14,10 @@ public class GameDBContext : IdentityDbContext<IdentityUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Ignore<IdentityUserLogin<string>>();
-        modelBuilder.Ignore<IdentityUserRole<string>>();
-        modelBuilder.Ignore<IdentityUserToken<string>>();
+        modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+        modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+        modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+        
         modelBuilder.Entity<Item>().HasData(
             new Item
             {

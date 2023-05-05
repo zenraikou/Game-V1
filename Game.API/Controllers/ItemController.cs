@@ -1,11 +1,8 @@
 using FluentValidation;
 using FluentValidation.Results;
-using Game.Contracts.Items;
-using Game.Core.Items.Commands.Delete;
-using Game.Core.Items.Commands.Post;
-using Game.Core.Items.Commands.Update;
-using Game.Core.Items.Queries.Get;
-using Game.Core.Items.Queries.GetAll;
+using Game.Contracts.Item;
+using Game.Core.Services.Commands;
+using Game.Core.Services.Queries;
 using Game.Domain.Entities;
 using MapsterMapper;
 using MediatR;
@@ -37,7 +34,7 @@ public class ItemController : ControllerBase
     [HttpGet("~/api/[controller]s")] /* GET: {host}/api/items */
     public async Task<ActionResult<List<ItemResponse>>> GetAll()
     {
-        var getAll = new GetItemsQuery();
+        var getAll = new GetAllItemsQuery();
         var items = await _mediator.Send(getAll);
 
         if (items is null)

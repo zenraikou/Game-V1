@@ -1,4 +1,4 @@
-using Game.Contracts.Items;
+using Game.Contracts.Item;
 using Game.Domain.Entities;
 using Mapster;
 

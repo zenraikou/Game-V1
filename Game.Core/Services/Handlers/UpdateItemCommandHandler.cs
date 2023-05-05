@@ -1,8 +1,9 @@
 using Game.Core.Common.Interfaces.Persistence;
+using Game.Core.Services.Commands;
 using Game.Domain.Entities;
 using MediatR;
 
-namespace Game.Core.Items.Commands.Update;
+namespace Game.Core.Services.Handlers;
 
 public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand, Item>
 {
