@@ -1,7 +1,7 @@
 using System.Text;
 using Game.Core.Common.Interfaces.Persistence;
+using Game.Domain.Entities;
 using Game.Infrastructure.Common;
-using Game.Infrastructure.Identity;
 using Game.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

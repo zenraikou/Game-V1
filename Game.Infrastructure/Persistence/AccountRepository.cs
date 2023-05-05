@@ -5,16 +5,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Game.Infrastructure.Persistence;
 
-public class UnitOfWork : IUnitOfwork
+public class AccountRepository : IAccountRepository
 {
     private readonly GameDBContext _context;
     private readonly UserManager<User> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
 
-    public IAccountRepository Accounts { get; private set; }
-    public IItemRepository Items { get; private set; }
-
-    public UnitOfWork(
+    public AccountRepository(
         GameDBContext context,
         UserManager<User> userManager,
         RoleManager<IdentityRole> roleManager)
@@ -22,18 +19,15 @@ public class UnitOfWork : IUnitOfwork
         _context = context;
         _userManager = userManager;
         _roleManager = roleManager;
-        
-        Accounts = new AccountRepository(context, userManager, roleManager);
-        Items = new ItemRepository(context);
     }
 
-    public async Task SaveAsync()
+    public Task<User> Login(User user)
     {
-        await _context.SaveChangesAsync();
+        throw new NotImplementedException();
     }
 
-    public void Dispose()
+    public async Task Register(User user)
     {
-        _context.Dispose();
+        await _userManager.CreateAsync(user, user.PasswordHash!);
     }
 }
