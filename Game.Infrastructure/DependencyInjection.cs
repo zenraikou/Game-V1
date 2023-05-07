@@ -25,7 +25,7 @@ public static class DependencyInjection
         });
 
         services
-            .AddIdentity<User, IdentityRole>()
+            .AddIdentity<User, Role>()
             .AddEntityFrameworkStores<GameDBContext>()
             .AddDefaultTokenProviders();
 

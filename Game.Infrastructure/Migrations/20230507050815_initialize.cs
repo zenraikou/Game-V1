@@ -17,7 +17,7 @@ namespace Game.Infrastructure.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -31,7 +31,7 @@ namespace Game.Infrastructure.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -73,7 +73,7 @@ namespace Game.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -94,7 +94,7 @@ namespace Game.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -116,7 +116,7 @@ namespace Game.Infrastructure.Migrations
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,8 +133,8 @@ namespace Game.Infrastructure.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,7 +157,7 @@ namespace Game.Infrastructure.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -178,10 +178,10 @@ namespace Game.Infrastructure.Migrations
                 columns: new[] { "Id", "Description", "Name", "Timestamp" },
                 values: new object[,]
                 {
-                    { new Guid("57e4b974-113e-469a-a73d-c3bcfec6bccb"), "A shield crafted from the scales of a Pure Silver Dragon.", "Vanguard", new DateTime(2023, 5, 7, 4, 31, 47, 975, DateTimeKind.Utc).AddTicks(9962) },
-                    { new Guid("71fc01b3-4bd2-4a4a-a038-62a49e2696f1"), "A sword crafted from the talon of a Pure Silver Dragon.", "Yasha", new DateTime(2023, 5, 7, 4, 31, 47, 975, DateTimeKind.Utc).AddTicks(9954) },
-                    { new Guid("db11021d-9368-47ae-9ede-bb80cd488802"), "A bow crafted from the wing of a Pure Silver Dragon.", "Buriza", new DateTime(2023, 5, 7, 4, 31, 47, 975, DateTimeKind.Utc).AddTicks(9958) },
-                    { new Guid("f934595e-f0c7-4bdb-a1f6-981e31170521"), "A dagger crafted from the tooth of a Pure Silver Dragon.", "Dagon", new DateTime(2023, 5, 7, 4, 31, 47, 975, DateTimeKind.Utc).AddTicks(9939) }
+                    { new Guid("35833184-5e16-4c5c-8ce7-0f737b7b5cea"), "A shield crafted from the scales of a Pure Silver Dragon.", "Vanguard", new DateTime(2023, 5, 7, 5, 8, 15, 133, DateTimeKind.Utc).AddTicks(4185) },
+                    { new Guid("44de35a6-b5bf-4064-91d5-070efcd4d610"), "A sword crafted from the talon of a Pure Silver Dragon.", "Yasha", new DateTime(2023, 5, 7, 5, 8, 15, 133, DateTimeKind.Utc).AddTicks(4116) },
+                    { new Guid("59771c06-56ff-4135-b16e-6ebdc710b328"), "A dagger crafted from the tooth of a Pure Silver Dragon.", "Dagon", new DateTime(2023, 5, 7, 5, 8, 15, 133, DateTimeKind.Utc).AddTicks(4102) },
+                    { new Guid("871a2e09-d605-43a7-bf4e-0041da275f24"), "A bow crafted from the wing of a Pure Silver Dragon.", "Buriza", new DateTime(2023, 5, 7, 5, 8, 15, 133, DateTimeKind.Utc).AddTicks(4181) }
                 });
 
             migrationBuilder.CreateIndex(

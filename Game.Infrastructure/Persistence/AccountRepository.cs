@@ -9,12 +9,12 @@ public class AccountRepository : IAccountRepository
 {
     private readonly GameDBContext _context;
     private readonly UserManager<User> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<Role> _roleManager;
 
     public AccountRepository(
         GameDBContext context,
         UserManager<User> userManager,
-        RoleManager<IdentityRole> roleManager)
+        RoleManager<Role> roleManager)
     {
         _context = context;
         _userManager = userManager;

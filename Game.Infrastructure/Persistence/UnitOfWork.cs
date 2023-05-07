@@ -9,7 +9,7 @@ public class UnitOfWork : IUnitOfwork
 {
     private readonly GameDBContext _context;
     private readonly UserManager<User> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<Role> _roleManager;
 
     public IAccountRepository Accounts { get; private set; }
     public IItemRepository Items { get; private set; }
@@ -17,7 +17,7 @@ public class UnitOfWork : IUnitOfwork
     public UnitOfWork(
         GameDBContext context,
         UserManager<User> userManager,
-        RoleManager<IdentityRole> roleManager)
+        RoleManager<Role> roleManager)
     {
         _context = context;
         _userManager = userManager;
