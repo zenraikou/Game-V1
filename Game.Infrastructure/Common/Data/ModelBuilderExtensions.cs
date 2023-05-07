@@ -8,10 +8,6 @@ public static class ModelBuilderExtensions
 {
     public static void Seed(this ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
-        modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
-        modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
-        
         modelBuilder.Entity<Item>().HasData(
             new Item
             {
