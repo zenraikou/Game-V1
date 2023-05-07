@@ -1,5 +1,5 @@
 using FluentValidation;
-using Game.API.Common.AssemblyMarker;
+using Game.API.Common.Interfaces;
 using Game.API.Common.Mappings;
 using Serilog;
 
