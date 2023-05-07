@@ -1,17 +1,12 @@
 using Game.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Game.Infrastructure.Common;
+namespace Game.Infrastructure.Common.Data;
 
-public class GameDBContext : IdentityDbContext<User>
+public static class ModelBuilderExtensions
 {
-    public GameDBContext(DbContextOptions<GameDBContext> options) : base(options) { }
-
-    public DbSet<Item> Items => Set<Item>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public static void Seed(this ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
         modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();

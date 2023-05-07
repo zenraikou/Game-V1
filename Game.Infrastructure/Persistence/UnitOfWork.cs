@@ -1,6 +1,6 @@
 using Game.Core.Common.Interfaces.Persistence;
 using Game.Domain.Entities;
-using Game.Infrastructure.Common;
+using Game.Infrastructure.Common.Data;
 using Microsoft.AspNetCore.Identity;
 
 namespace Game.Infrastructure.Persistence;

@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 using Game.Core.Common.Interfaces.Persistence;
-using Game.Infrastructure.Common;
+using Game.Infrastructure.Common.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Game.Infrastructure.Persistence;
